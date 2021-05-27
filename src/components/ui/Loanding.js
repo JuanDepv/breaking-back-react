@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import MoonLoader from 'react-spinners/MoonLoader'
 
 const Loading = ({loading}) => {
@@ -16,3 +17,7 @@ const Loading = ({loading}) => {
 }
 
 export default Loading
+
+Loading.propTypes = {
+    loading: PropTypes.bool.isRequired,
+}

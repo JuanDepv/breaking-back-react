@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { Alert, Col, Container, Row, Button } from 'react-bootstrap'
+import { Col, Container, Row, Button } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 
 import CardQuote from './CardCharacters'
@@ -13,17 +13,20 @@ import { comentReducer } from '../../reducers/comentReducer'
 import { qualifyReducer } from '../../reducers/qualifyReducer'
 import { useFetch } from '../../hooks/useFetch'
 import { types } from '../../types'
+import AlertMessage from '../ui/AlertMessage'
 
 
 
 const CharactersQuote = ({history}) => {
-
-    const { name } = useParams()
-    const { data, loading } = useFetch({ service: breaKingCharactersByQuote, params: name })
-
+    // hooks
     const [favorite, dispatchFavorite] = useReducer(favoriteReducer, [], initFavorite)
     const [coments, dispatchsComent] = useReducer(comentReducer, [], initComent)
     const [start, dispatchStart] = useReducer(qualifyReducer, [], initStart)
+    const { name } = useParams()
+    
+    // custom hooks
+    const { data, loading } = useFetch({ service: breaKingCharactersByQuote, params: name })
+
 
     useEffect(() => {
         localStorage.setItem('favorite', JSON.stringify(favorite))
@@ -69,8 +72,6 @@ const CharactersQuote = ({history}) => {
             type: types.qualify_add,
             payload: newStart
         })
-        console.log(quotei, quote, author, startAdd);
-
         reset({startAdd: ''})
         handleClose(false)
         toast.success('start add...')
@@ -85,11 +86,7 @@ const CharactersQuote = ({history}) => {
                     <Button className='btn btn-dark mt-3' onClick={handleReturn}>Volver</Button>
                 </Col>
                 {data.length === 0 && (
-                    <Col md={12}>
-                        <Alert variant='warning' className="mt-5">
-                            Not have quotes...
-                        </Alert>
-                    </Col>
+                    <AlertMessage message="Not have quotes..." btnColor="warning" />
                 )}
             </Row>
             <Row>

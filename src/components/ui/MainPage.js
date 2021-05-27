@@ -1,5 +1,6 @@
 import React from 'react'
-import { Alert, Card, Col, Container, Row } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import AlertMessage from './AlertMessage'
 
 const MainPage = () => {
 
@@ -20,12 +21,8 @@ const MainPage = () => {
             <Container>
                 <h1>My favorite Quotes</h1>
                 <Row>   
-                    { favorite().length === 0 && 
-                        <Col md={12}>
-                            <Alert variant='warning' className="mt-5">
-                                Not have favorites...
-                            </Alert>
-                        </Col>
+                    { favorite().length === 0 &&
+                        <AlertMessage message="Not have favorites quotes..." btnColor="warning" />
                     }
                     {favorite().map((f) => (
                         <Col md={4} key={f.quote_id}>
@@ -45,12 +42,8 @@ const MainPage = () => {
 
                 <h1>Coments</h1>
                 <Row>
-                    { comments().length === 0 && 
-                        <Col md={12}>
-                            <Alert variant='warning' className="mt-5">
-                                Not have comments...
-                            </Alert>
-                        </Col>
+                    { comments().length === 0 &&
+                        <AlertMessage message="Not have comments..." btnColor="warning" />
                     }
                     {comments().map((c) => (
                         <Col md={4} key={c.coment} >
@@ -73,12 +66,8 @@ const MainPage = () => {
 
                 <h1>Start</h1>
                 <Row>
-                    { start().length === 0 && 
-                        <Col md={12}>
-                            <Alert variant='warning' className="mt-5">
-                                Not have quotes...
-                            </Alert>
-                        </Col>
+                    { start().length === 0 &&
+                        <AlertMessage message="Not have starts or qualifys..." btnColor="warning" />
                     }
                     {start().map((s) => (
                         <Col md={4} key={s.startAdd}>

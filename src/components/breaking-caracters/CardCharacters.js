@@ -13,9 +13,9 @@ const CardCharacters = ({ name, nickname, birthday, img, portrayed, status }) =>
                     width={100} 
                     height={300} />
                 <Card.Body>
-                    <Card.Title>{ name }</Card.Title>
+                    <Card.Title>{ name.toLowerCase() }</Card.Title>
                     <Card.Text>
-                        { nickname }
+                        { nickname.toLowerCase() }
                     </Card.Text>
                     <Card.Text>
                         { birthday === 'Unknown' ? 'n/a' : birthday }

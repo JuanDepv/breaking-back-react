@@ -6,7 +6,7 @@ import ModalAddStarts from './ModalAddStarts'
 const CardQuote = ({ quote_id, quote, author, favorite, handleAddComent, handleAddStart }) => {
 
     const [showComent, setShowComent] = useState(false)
-    const [showStart, setStart] = useState(false)
+    const [showStart, setShowStart] = useState(false)
 
     return (
         <>
@@ -23,7 +23,7 @@ const CardQuote = ({ quote_id, quote, author, favorite, handleAddComent, handleA
                 author={author}
                 handleAddStart={handleAddStart}
                 show={showStart} 
-                handleClose={setStart} />
+                handleClose={setShowStart} />
             <Col md={4} sm={12}>
                 <Card className="box my-4 animate__animated animate__fadeIn">
                     <Card.Body>
@@ -42,7 +42,7 @@ const CardQuote = ({ quote_id, quote, author, favorite, handleAddComent, handleA
                             <i className="fas fa-comments"></i>
                         </Button>
                         <Button 
-                            variant="outline-warning" onClick={() => setStart(true)}>
+                            variant="outline-warning" onClick={() => setShowStart(true)}>
                             <i className="fas fa-star"></i> 
                         </Button>
                     </Card.Body>

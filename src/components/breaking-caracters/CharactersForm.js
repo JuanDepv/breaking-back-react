@@ -9,15 +9,15 @@ const CharactersForm = ({show, setShow, handleSubmitFilter}) => {
 
     const history = useHistory();
 
-    const [ value, handleInputChange ] = useForm({ searchName: '', searchNickName: '' })
+    const [ value, handleInputChange, reset ] = useForm({ searchName: '', searchNickName: '' })
 
     const { searchName, searchNickName } = value
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (searchName === '' || searchNickName === '') {
-            history.push(`?name=&nick=`)
-            toast.error('los campos se encuentran vacios')
+            // history.push(`?name=&nick=`)
+            toast.error('Missing fields to fill...')
           } else {
             history.push(`?name=${searchName}&nick=${searchNickName}`)
             handleSubmitFilter()
@@ -25,6 +25,7 @@ const CharactersForm = ({show, setShow, handleSubmitFilter}) => {
     }
 
     const handleReset = () => {
+        reset({ searchName: '', searchNickName: '' })
         history.push(`/breakingbad`)
     }
 

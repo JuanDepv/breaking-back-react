@@ -12,21 +12,22 @@ import { usePagination } from '../../hooks/usePagination'
 import { PER_PAGE } from '../../helpers/constants'
 import { breaKingCharacters } from '../../services/services'
 import { useLocation } from 'react-router'
+import AlertMessage from '../ui/AlertMessage'
 
 const Characters = () => {
 
+    //hooks
     const location = useLocation()
     const { name, nick } = queyString.parse(location.search)
 
+    // custom hooks
     const [showForm, setShowForm] = useState(false)
     const { data, loading } = useFetch({service: breaKingCharacters})
     const { next, prev, currentPage, currenCharacters, maxPage } = usePagination(data, PER_PAGE)
 
     const handleSubmitFilter = () => {
-        if(location.search === "") return currenCharacters()
-        if(name === "" && nick === "") return currenCharacters()
-
-        return data.filter((f) => f.name.toLowerCase().includes(name) && f.nickname.toLowerCase().includes(nick))
+        if(location.search === "" && name === "" && nick === "") return currenCharacters()
+        return data.filter((f) => f.name.trim().toLowerCase().includes(name) && f.nickname.trim().toLowerCase().includes(nick))
     }
 
     useEffect(() => {
@@ -42,38 +43,34 @@ const Characters = () => {
                 handleSubmitFilter={handleSubmitFilter} />
             <Row>
                 <Col md={6}>
-                    {
-                        location.search === "" || name === "" || nick === "" ?
+                    {location.search === "" || name === "" || nick === "" ?
                         (<Pagination 
                             currentPage={currentPage} 
                             prev={prev}
                             next={next}
                             maxPage={maxPage} 
-                        />)
-                        : 
-                        (
-                            <div></div>
-                        )
-                            
-                    }
+                        />):(<></>)}
                 </Col>
+
                 <Col md={6} className="text-center my-5 animate__animated animate__fadeIn">
                     {!showForm && <Button variant="outline-dark" onClick={() => setShowForm(true)}>Busqueda</Button>}
                 </Col>
             </Row>
+
             <Row>
-                {
-                    location.search === "" ?
-                        
-                            (currenCharacters().map((caracters) => (
-                                <CardCharacters key={caracters.char_id} {...caracters} /> 
-                            )))
-                        
-                        : 
-                            ( handleSubmitFilter().map((caracters) => (
-                                    <CardCharacters key={caracters.char_id} {...caracters} /> 
-                            )))
-                }
+                {location.search === "" ?
+                    (currenCharacters().map((caracters) => (
+                        <CardCharacters key={caracters.char_id} {...caracters} /> 
+                    )))
+                    : 
+                    ( handleSubmitFilter().map((caracters) => (
+                            <CardCharacters key={caracters.char_id} {...caracters} /> 
+                    )))}
+                    
+                {handleSubmitFilter().length === 0 &&
+                    (<AlertMessage 
+                        message="search not found or search done by capital letters. always search in lower case ..." 
+                        btnColor="warning" />)}
             </Row>
         </Container>
     )
