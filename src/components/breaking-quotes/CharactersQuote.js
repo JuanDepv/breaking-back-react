@@ -54,6 +54,10 @@ const CharactersQuote = ({history}) => {
 
     const handleAddComent = (e, quotei, quote, author, coment, reset, handleClose) => {
         e.preventDefault()
+        if(coment === "" || coment.length === 0) {
+            toast.warning('you have not made the comment ...')
+            return false;
+        }
         const newComent = {quotei, quote, author, coment}
         dispatchsComent({
             type: types.coments_add,
@@ -67,6 +71,10 @@ const CharactersQuote = ({history}) => {
 
     const handleAddStart = (e, quotei, quote, author, startAdd, reset, handleClose) => {
         e.preventDefault()
+        if(startAdd === "" || startAdd === undefined) {
+            toast.warning('select the rating to the quotes ...')
+            return false;
+        }
         const newStart = {quotei, quote, author, startAdd}
         dispatchStart({
             type: types.qualify_add,

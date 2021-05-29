@@ -22,6 +22,7 @@ const ModalAddStarts = ({quotei, quote, author, show, handleClose, handleAddStar
                                 name="startAdd"
                                 value={startAdd}
                                 onChange={handleInputChange}>
+                                    <option value="0">seleccione</option>
                                 {start.map((s) => (
                                     <option key={s}>{s}</option>
                                 ))}
