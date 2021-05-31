@@ -16,10 +16,10 @@ const AppRouter = () => {
             <Router>
                 <Navbar />
                 <Switch>
-                    <Route exact path='/' component={MainPage} />
+                    <Route exact path='/myLibrary' component={MainPage} />
                     <Route exact path='/quotes/:name' component={CharactersQuote} />
                     <Route exact path='/breakingbad' component={Characters} />
-                    <Redirect to='/marvel' />
+                    <Redirect to='/brekingbad' />
                 </Switch>
             </Router>
         </>
